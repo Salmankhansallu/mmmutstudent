@@ -8,7 +8,7 @@ const userschema = new mongoose.Schema({
     email:{
         type:String,
         required:true,
-        unique:true,
+        unique:false,
         validate(value){
             if(!validator.isEmail(value)){
                 throw new Error("Email Invalid...!");
@@ -18,7 +18,7 @@ const userschema = new mongoose.Schema({
     phone:{
         type:Number,
         required:true,
-        unique:true,
+        unique:false,
         min:10
     },
     message:{

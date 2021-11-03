@@ -1,7 +1,9 @@
 require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const app = express();
+
 require("./db/conn");
 const hbs = require("hbs");
 const user = require("./model/usermessage");
@@ -42,7 +44,7 @@ app.post("/contact",async (req,res)=>{
 
     }catch(e){
         // res.status(500).send(e);
-        res.status(201).send(e);
+        res.status(201).send("Invalid Email...!");
     }
 
 
