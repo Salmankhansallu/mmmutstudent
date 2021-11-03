@@ -7,6 +7,7 @@ const app = express();
 require("./db/conn");
 const hbs = require("hbs");
 const user = require("./model/usermessage");
+const { exists } = require("./model/usermessage");
 
 const staticpath = path.join(__dirname,"../public");
 const templatepath = path.join(__dirname,"../templates");
@@ -31,20 +32,45 @@ app.get("/contact",(req,res)=>{
 })
 app.post("/contact",async (req,res)=>{
     try{
-        const registereduser= new user({
-            name:req.body.name,
-            email:req.body.email,
-            phone:req.body.phone,
-            message:req.body.message
+        const Email=req.body.email;
+        const Phone=req.body.phone;
+        const useremail=await user.findOne({email:Email},{_id:0}).select({email:1});
+        const userphone=await user.findOne({phone:Phone},{_id:0}).select({phone:1});
+    //    console.log(useremail);
+    //    console.log(userphone);
+   
+         if(useremail==null){
+        
+          if(userphone==null){
+            
+            const registereduser= new user({
+            
+                name:req.body.name,
+                email:req.body.email,
+                phone:req.body.phone,
+                message:req.body.message
+    
+            })
+            const registered= await registereduser.save();
+            
+            res.status(500).render("index");
+            
 
-        })
-        const registered= await registereduser.save();
-        // res.status(201).render("index");
-        res.status(500).render("index");
 
+         }
+         else{
+             res.send("Phone Number Already Exists....!");
+         }
+        }
+        else{
+            res.send("Email Already Exists...!");
+        }
+      
+
+        
     }catch(e){
-        // res.status(500).send(e);
-        res.status(201).send("Invalid or Already exists Email...!");
+        
+        res.status(201).send(e);
     }
 
 
