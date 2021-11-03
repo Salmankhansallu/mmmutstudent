@@ -44,7 +44,7 @@ app.post("/contact",async (req,res)=>{
 
     }catch(e){
         // res.status(500).send(e);
-        res.status(201).send("Invalid Email...!");
+        res.status(201).send("Invalid or Already exists Email...!");
     }
 
 
