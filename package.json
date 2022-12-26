@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "proxy": "http://localhost:8000/",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js -e js,hbs"
